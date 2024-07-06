@@ -1,0 +1,15 @@
+.th-clients{
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-color: rgb(96 165 250);
+}
+
+.tn-clients{
+    padding: 6px;
+}
+
+.table-clients{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    
+}

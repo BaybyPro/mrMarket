@@ -1,0 +1,79 @@
+<div class="container mx-auto text-center font-bold  text-neutral-500 ">
+    <div class="text-2xl mt-10 border-b-4 border-blue-500 md:text-4xl uppercase flex">
+        <mat-icon class="h-24 font-medium">group</mat-icon>
+        Clientes
+    </div>
+    <div class="flex flex-row px-1 xl:px-20 mt-10 mb-3">
+        <mat-form-field class="flex-1">
+            <mat-label>Filtrar</mat-label>
+            <input matInput #filterText formControlName="names" (keypress)="onEnter($event,filterText.value)">
+        </mat-form-field>
+        <button [matMenuTriggerFor]="menu"  class="w-24 bg-neutral-600 text-white h-12 mx-4 rounded-md font-medium ">{{ selectedOption  }}</button>
+        <mat-menu #menu="matMenu">
+            @for (option of options; track $index) {
+                <button mat-menu-item  (click)="selectOption(option)">
+                    {{ option }}
+                  </button>
+            }
+          </mat-menu>
+        <button class="w-24 bg-neutral-600 text-white h-12 rounded-md font-medium " (click)="add()"> + Agregar</button>
+    </div>
+    <div class="  uppercase">
+        <div class="tables_employer flex items-center justify-center h-full">
+            @if(confirm){
+                <div
+                class="w-1/2 h-1/5 border-4 border-teal-700 absolute bg-gray-200 bg-opacity-90 items-center justify-center rounded-xl">
+                <div class="flex flex-col items-center justify-center h-2/3">
+                    <span class="text-xl">Esta seguro de querer eliminar a:</span>
+                    <span class="text-xl text-blue-800"></span>
+                </div>
+                <button (click)="confirmDelete()" class=" mt-4 flex-shrink-0 mx-16 bg-red-700 h-10 w-24 text-white text-md">confirmar</button>
+                <button (click)="cancelDelete()" class=" mt-4 flex-shrink-0 mx-16 bg-teal-700 h-10 w-24 text-white text-md">cancelar</button>
+            </div>
+            }
+            <div class="table-clients">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="thead border-b-4 th-clients border-blue-400 border-l-4">ID</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 ">Nombres</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 ">Apellidos</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 ">DNI</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 ">dirección</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 ">Numero</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 ">Estado</th>
+                            <th class="thead border-b-4 th-clients border-blue-400 border-r-4">acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (client of clients; track $index) {
+                        <tr>
+                            <td class="border-double tn-clients border-b-4 border-blue-400 border-l-4">{{client.id}}</td>
+                            <td class="border-double tn-clients border-b-4 border-blue-400 border-l-4 px-2">{{client.name}}</td>
+                            <td class="border-double tn-clients border-b-4 border-blue-400 border-l-4 px-2">{{client.lastname}}</td>
+                            <td class="border-double tn-clients border-b-4 border-blue-400 border-l-4 px-2">{{client.dni}}</td>
+                            <td class="border-double tn-clients border-b-4 border-blue-400 border-l-4 px-2">{{client.address}}</td>
+                            <td class="border-double tn-clients border-b-4 border-blue-400 border-l-4 px-2">{{client.phone_number}}</td>
+                            @if(client.status == '1'){
+                            <td class="text-neutral-400 tn-clients border-double border-b-4 border-blue-400 border-l-4"><mat-icon>radio_button_checked</mat-icon></td>}
+                            @else if (client.status == '2') {<td class="text-green-400 tn-clients border-double border-b-4 border-blue-400 border-l-4"><mat-icon>radio_button_checked</mat-icon></td>}
+                            @else if (client.status == '3') {<td class="text-yellow-400 tn-clients border-double border-b-4 border-blue-400 border-l-4"><mat-icon>radio_button_checked</mat-icon></td>}
+                            @else if (client.status == '4') {<td class="text-red-400 tn-clients border-double border-b-4 border-blue-400 border-l-4"><mat-icon>radio_button_checked</mat-icon></td>}
+                            @else { <td class="text-red-400 tn-clients border-double border-b-4 border-blue-400 border-l-4"><mat-icon>radio_button_checked</mat-icon></td>}
+                            <td class="text-blue-800 tn-clients border-double border-b-4 border-blue-400 border-r-4 border-l-4"><mat-icon [matMenuTriggerFor]="action" >edit
+                            <mat-menu #action="matMenu">
+                                <button mat-menu-item class="text-white" (click)="addLoan(client.id)">Prestamo</button>
+                                <button mat-menu-item class="text-white" (click)="openPays(client.id)">Ver prestamos</button>
+                                <button mat-menu-item class="text-white" (click)="edit(client.id)">Editar</button>
+                            </mat-menu>
+                            </mat-icon></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <mat-paginator [length]="count" [pageSize]="pageSize" (page)="onPageChange($event)">>
+        </mat-paginator>
+    </div>
+</div>

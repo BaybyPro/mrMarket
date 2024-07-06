@@ -1,0 +1,252 @@
+
+    <div class="content-header bg-neutral-300">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="my-3">Datos de la empresa</h1>
+          </div><!-- /.col -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3>{{data.total_invested}}</h3>
+
+              <p>Total prestado</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a  class="small-box-footer h-3 sm:h-5"></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{data.total_loans}}</h3>
+
+              <p>Cantidad de prestamos</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a  class="small-box-footer h-3 sm:h-5"></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{data.total_clients}}</h3>
+
+              <p>Cantidad de clientes</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a  class="small-box-footer h-3 sm:h-5"></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3>{{data.total_earned}}</h3>
+
+              <p>Total cobrado</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a  class="small-box-footer h-3 sm:h-5"></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="my-3">Datos por mes</h1>
+              <input #date class="bg-neutral-300 cursor-pointer" type="month" value={{fecha}}  (change)="updateDate(date.value)">
+            </div><!-- /.col -->
+        </div><!-- /.container-fluid -->
+      </div>
+
+      
+  
+  <!-- Main content -->
+  <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{dataMonth.total_invested}}</h3>
+  
+                <p>Total prestado del mes</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a  class="small-box-footer h-3 sm:h-5"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{dataMonth.total_loans}}</h3>
+  
+                <p>Prestamos del mes</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a  class="small-box-footer h-3 sm:h-5"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{dataMonth.total_clients}}</h3>
+  
+                <p>Clientes nuevos</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a  class="small-box-footer h-3 sm:h-5"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{dataMonth.total_earned}}</h3>
+  
+                <p>Total cobrado del mes</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a  class="small-box-footer h-3 sm:h-5"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-12 connectedSortable">
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="card day-body mt-3">
+            <div class="card-header">
+              <h3 class="card-title text-white">
+                <i class="fas fa-calendar-day mr-1"></i>
+                Dato por día
+              </h3>
+              <div class="card-tools">
+                <input class="picker-day" #dayInput type="date" value={{day}} (change)="updateDay(dayInput.value)">
+              </div>
+            </div><!-- /.card-header -->
+            <div class="card-body text-center sm:flex">
+              <div class="col-lg-6">
+                <!-- small box -->
+                <div class="small-box pay-day">
+                  <div class="p-2">
+                    <h2 class="">Cobros: {{dataday.total_earned}}</h2>
+                    <div class="flex justify-center">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th class="px-1 sm:px-2 py-2">ID</th>
+                            <th class="px-2 sm:px-4 py-2">COBRADO</th>
+                            <th class="px-2 sm:px-4 py-2">TIPO</th>
+                            <th class="px-4 py-2">POR</th>
+                          </tr>
+                        </thead>
+                        <tbody class="uppercase">
+                          @for (pay of pays; track $index) {
+                          <tr>
+                            <td class="">{{pay.loan_id}}</td>
+                            <td>{{pay.amount_paid}}</td>
+                            @if(pay.status == 2){<td class="text-green-600">completo</td>}
+                            @else if(pay.status == 3){<td class="text-yellow-500">parcial</td>}
+                            @else if(pay.status == 5){<td class="text-orange-400">atrasado</td>}
+                            <td>{{pay.userName}}</td>
+                          </tr>
+                        }
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <!-- small box -->
+                <div class="small-box loan-day">
+                  <div class="p-2">
+                    <h2 class="">Prestado: {{dataday.total_loaned}}</h2>
+                    <div class="flex justify-center">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th class="px-1 sm:px-2 py-2">ID</th>
+                            <th class="px-2 sm:px-4 py-2">PRESTADO</th>
+                            <th class="px-2 sm:px-4 py-2">INTERES</th>
+                            <th class="px-4 py-2">POR</th>
+                          </tr>
+                        </thead>
+                        <tbody class="uppercase">
+                          @for (loan of loans; track $index) {
+                          <tr>
+                            <td class="">{{loan.id}}</td>
+                            <td class="text-blue-400">{{loan.amount}}</td>
+                            <td>{{loan.interest}} %</td>
+                            <td>{{loan.userName}}</td>
+                          </tr>
+                        }
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+          
+        </section>
+        <!-- /.Left col -->
+      </div>
+      <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->

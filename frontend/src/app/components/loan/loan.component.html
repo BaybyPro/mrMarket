@@ -1,0 +1,123 @@
+<div class="container mx-auto text-center font-bold  text-neutral-500">
+  <div class="text-2xl mt-10 border-b-4 border-blue-500 md:text-4xl uppercase flex">
+    <mat-icon class="pt-1">real_estate_agent</mat-icon>
+    PRESTAMOS
+  </div>
+
+  <div class="flex flex-row px-1 xl:px-20 mt-10 mb-3">
+    <mat-form-field class="flex-1">
+      <mat-label>Inserte código de prestamos</mat-label>
+      <input type="number" matInput #loanId formControlName="names">
+    </mat-form-field>
+    <button (click)="searchLoan(loanId.value)" class="w-24 bg-neutral-600 text-white h-12 mx-4 rounded-md font-medium ">Buscar</button>
+  </div>
+
+  <!-- container -->
+  <div class="container-pay p-2">
+  
+    <mat-accordion>
+      @for (loan of loans; track $index) {
+      <mat-expansion-panel (click)="getPays(loan.id,loan.user_id,loan.client_id)">
+        <mat-expansion-panel-header (click)="updateDay=false" (click)="editpaid=true" (click)="pays=[]" (click)="[days=[],dataPaid=false,client={}]">
+          <mat-panel-title>
+            {{loan.id}}
+          </mat-panel-title>
+          <mat-panel-description>
+            @if (loan.status=='1') {
+            <span style="color: rgb(0, 189, 63);">PAGADO</span>}
+            @else if (loan.status=='2') {<span class="text-blue-500">EN PROCESO</span>}
+            @else if (loan.status=='3') {<span class="text-yellow-500">ATRASADO</span>}
+            @else if (loan.status=='4') {<span class="text-red-500">PENTIENDE</span>}
+            @else {
+            <strong class="text-red-500"> NO PAGADO</strong>
+            }
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <tr>
+            <th class="px-2"><h3>{{client.name}}</h3></th>
+            <th class="px-2"><h3>{{client.lastname}}</h3></th>
+            <th class="px-2"><h3>{{client.dni}}</h3></th>
+          </tr>
+        </div>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th class="px-2 text-blue-500">Hecho por</th>
+                <th class="px-2 text-blue-500">Credito</th>
+                <th class="px-2 text-blue-500">Interés</th>
+                <th class="px-2 text-blue-500">Total</th>
+                <th class="px-2 text-blue-500">Inicio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{user.name}}</td>
+                <td>{{loan.amount}}</td>
+                <td>{{loan.interest}} %</td>
+                <td class="px-2">{{loan.total}}</td>
+                <td>{{loan.date_start}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-pay">
+          <div class="head-table">
+            <div class="table-scrollX">
+            <thead>
+              <tr>
+                @for (day of days; track $index) {
+                <th class="colHead border-neutral-400 border-l-4 bg-gray-300 border-t-4 px-2 text-sky-600">
+                  {{day[2]}}-{{day[1]}}</th>
+                }
+                <th class="colHead border-neutral-400 border-l-4 bg-gray-300 border-t-4 px-2 text-red-600 border-r-4">
+                  Falta</th>
+              </tr>
+              <tr>
+                @for (pay of pays; track $index) {
+                  @if (pay.status == 1) {<th  class="colHead border-neutral-400 border-l-4 bg-gray-300 border-b-4 text-neutral-600 cursor-pointer">{{pay.amount_paid}}</th>}
+                  @else if (pay.status == 2) {<th (click)="showDataPaid(pay.day,pay.user_id)" class="colHead border-neutral-400 border-l-4 bg-gray-300 border-b-4 text-green-600 cursor-pointer">{{pay.amount_paid}}</th>}
+                  @else if (pay.status == 3) {<th (click)="showDataPaid(pay.day,pay.user_id)" class="colHead border-neutral-400 border-l-4 bg-gray-300 border-b-4 text-yellow-600 cursor-pointer">{{pay.amount_paid}}</th>}
+                  @else if (pay.status == 4) {<th (click)="showDataPaid(pay.day,pay.user_id)" class="colHead border-neutral-400 border-l-4 bg-gray-300 border-b-4 text-red-600 cursor-pointer">{{pay.amount_paid}}</th>}
+                }
+                <th (click)="openCreatePay(loan.id)" class="colHead border-neutral-400 border-l-4 bg-gray-300 border-b-4 text-neutral-600 border-r-4">
+                  {{loan.missing}}</th>
+              </tr>
+            </thead>
+            </div>
+          </div>
+          <div>
+            @if (updateDay) {
+              <div>
+                <h2 class="font-medium uppercase text-blue-500 pt-4">Actualizar pago  {{day}}</h2>
+              </div>
+              <div class="flex w-full">
+                <button (click)="dayPaid()" class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-green-700 text-green-600 hover:bg-green-700 hover:text-white" >Pagado</button>
+                <button (click)="notPaid()" class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-red-700 text-red-500 hover:bg-red-500 hover:text-white">No pagado</button>
+                @if(editpaid){
+                  <button (click)="editPaid()"class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-yellow-600 text-yellow-500 hover:bg-yellow-600 hover:text-white"
+                >Pago parcial</button>
+                }@else {
+                  <div class="flex-1 flex flex-col">
+                      <input type="number" #paidEditInput class="bg-neutral-600 border-2 border-yellow-600 ">
+                      <button (click)="submitPaid(paidEditInput.value)" class=" mt-2 text-yellow-600">ENVIAR</button>
+                    </div>
+                }
+              </div>
+            }@else if (dataPaid) {
+              <div class="mt-2 font-sm">
+                <h4 class="text-blue-500">DÍA <span>{{day}}</span></h4>
+                <h4 class="text-blue-500">ACTUALIZADO POR <span class="uppercase text-white">{{adminPaid.name}}</span> </h4>
+              </div>
+            }
+          </div>
+        </div>
+      </mat-expansion-panel>
+      }@empty {
+      <h2></h2>
+      }
+    </mat-accordion>
+  </div>
+
+</div>

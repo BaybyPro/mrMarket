@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.black-snackbar {
+    background: rgb(255, 0, 0) !important;
+    color: white !important;
+    padding-top: 3px;
+    border-radius: 5%;
+  }
+
+  .green-snackbar {
+    background: #32CD32 !important;
+    color: white !important;
+    padding-top: 3px;
+    border-radius: 5%;
+  }
+
+  .table-scrollX{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    
+}

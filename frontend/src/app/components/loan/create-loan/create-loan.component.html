@@ -1,0 +1,52 @@
+<mat-toolbar>
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center text-3xl  text-weight-xl" style="font-weight: 500;">Agregar prestamo</span>
+    </mat-toolbar-row>
+
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="loanForm">
+        <div fxFlex fxLayout="column">
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none">
+                <mat-label>Monto</mat-label>
+                <input matInput type="number" formControlName="amount" required>
+                @if(loanForm.controls.amount.touched && loanForm.controls.amount.invalid){
+                <mat-error>
+                    @if(loanForm.controls.amount.errors.required){
+                    <span>Este campo es obligatorio</span>}
+                    @else if (loanForm.controls.amount.errors.pattern) {
+                    <span>Este campo es invalido</span>
+                    }
+                </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none">
+                <mat-label>Fecha de inicio</mat-label>
+                <input matInput [matDatepicker]="picker" #fecha formControlName="date_start" readonly
+                (dateChange)="changeDatePicker(fecha.value)">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none">
+                <mat-label>Interés %</mat-label>
+                <input matInput formControlName="interest" type="number" required>
+                @if(loanForm.controls.interest.touched && loanForm.controls.interest.invalid){
+                <mat-error>
+                    @if(loanForm.controls.interest.errors.required){
+                    <span>Este campo es obligatorio</span>}
+                    @else if (loanForm.controls.interest.errors.pattern) {
+                    <span>Este campo es invalido</span>
+                    }
+                </mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" class="flex-row">
+    <button class="mr-10 mr-20:md" mat-raised-button type="submit" (click)="Submit()"
+        [disabled]="!(loanForm.valid && loanForm.dirty)">Registrar</button>
+    <button class="ml-10 ml-20:md" mat-raised-button mat-dialog-close (click)="close()">Cerrar</button>
+</mat-dialog-actions>

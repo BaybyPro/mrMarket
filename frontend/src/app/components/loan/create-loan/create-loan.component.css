@@ -1,0 +1,18 @@
+.mat-toolbar{
+    width: auto;
+ 
+}
+
+.title-center{
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+mat-form-field{
+    padding: 5px;
+    width: 100%
+}
+
+.mat-toolbar {
+  background-color: #5c5c5c;
+}

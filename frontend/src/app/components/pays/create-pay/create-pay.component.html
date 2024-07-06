@@ -1,0 +1,46 @@
+<mat-toolbar>
+    <mat-toolbar-row fxLayout="row">
+      <span class="title-center text-3xl text-weight-xl" style="font-weight: 500;">Pagos atrasados</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography">
+    @if (addPaid) {
+      <form [formGroup]="payForm">
+        <mat-form-field>
+          <mat-label>Monto</mat-label>
+          <input matInput formControlName="amount_paid" type="number">
+        </mat-form-field>
+      </form>
+    }
+    <div class="text-center">
+      <h1>Pagos atrasados</h1>
+      
+        <table>
+          <thead>
+            <tr>
+            <th class="px-2">Fecha</th>
+            <th class="px-2">Cantidad</th>
+            <th class="px-2">Hecho por</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (pay of PaysLader; track $index) {
+              <tr>
+            <td>{{pay.day}}</td>
+            <td class="text-green-600">{{pay.amount_paid}}</td>
+            <td class="uppercase">{{pay.admin}}</td>
+          </tr>
+            }
+          </tbody>
+        </table>
+      
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    @if (addPaid) {
+    <button (click)="addPayLader()" class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-green-700 text-green-600 hover:bg-green-700 hover:text-white" mat-raised-button>Agregar</button>
+    }
+    <button (click)="closeDialog()" class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-red-700 text-red-600 hover:bg-red-700 hover:text-white" mat-raised-button>Salir</button>
+  </mat-dialog-actions>
+  

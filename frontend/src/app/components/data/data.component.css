@@ -1,0 +1,33 @@
+.example-month-picker .mat-calendar-period-button,
+.example-month-picker .mat-calendar-next-button,
+.example-month-picker .mat-calendar-previous-button {
+  display: none;
+}
+
+.example-month-picker .mat-calendar-table-header {
+  display: none;
+}
+
+
+.day-body{
+  background: #3c4349;
+}
+
+.picker-day{
+  background: #3c4349;
+  color: white;
+  font-size: 120%;
+  cursor: pointer;
+}
+
+.pay-day{
+  background: #3c4349;
+  border: solid 2px rgba(0, 165, 0, 0.637);
+  color: white;
+}
+
+.loan-day{
+  background: #3c4349;
+  border: solid 2px rgb(59, 131, 246);
+  color: white;
+}

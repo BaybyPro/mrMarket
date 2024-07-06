@@ -1,0 +1,129 @@
+ <!-- Main content -->
+ <section class="content ">
+
+    <!-- Default box -->
+    <div class="card ">
+      <div class="card-header">
+        <h3 class="card-title">Usuarios</h3>
+      </div>
+      @if(admin.rol=='developer'){
+      <div class="my-4 flex justify-end">
+        <div class="justify-end sm:mr-4">
+            <button class="btn btn-info btn-lg" (click)="addUser()">Add +</button>
+        </div>
+      </div>}
+      <div class="card-body p-0 position-relative justify-center flex ">
+        @if(confirm){
+            <div class="confirm h-auto w-3/4 sm:w-1/2 border-2 border-neutral-900 position-absolute top-1/2 text-center justify-center align-center bg-neutral-700 rounded-lg py-3 bg-opacity-90">
+                <h2 class="text-white">ESTA SEGURO DE ELIMINAR A</h2>
+                <h3 class="text-lg text-blue-500 uppercase">{{nameUser}}</h3>
+                <mat-dialog-actions align="center">
+                    <button (click)="confirmDelete()"
+                      class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-green-700 text-green-600 hover:bg-green-700 hover:text-white px-4"
+                      mat-raised-button>CONFIRMAR</button>
+                    <button (click)="closeConfirm()"
+                      class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-red-700 text-red-600 hover:bg-red-700 hover:text-white px-4"
+                      mat-raised-button>CANCELAR</button>
+                  </mat-dialog-actions>
+            </div>
+        }
+        <table class="table table-striped projects">
+            <thead>
+                <tr>
+                    <th style="width: 20%">
+                        Usuario
+                    </th>
+                    <th style="width: 30%">
+                        Prestamos hechos
+                    </th>
+                    <th>
+                        Pagos cobrados&nbsp;&nbsp;  
+                    </th>
+                    <th style="width: 8%" class="text-center">
+                        Roles
+                    </th>
+                    <th style="width: 20%">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of users; track $index) {
+                    <tr>
+                        <td class="uppercase">
+                            <a>
+                                <mat-icon fontIcon="person"></mat-icon>    {{user.name}}
+                            </a>
+                            <br/>
+                            <small>
+                                Creado {{user.created}}
+                            </small>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                   Total:
+                                </li>
+                                <li class="list-inline-item">
+                                    <span class="text-lg text-blue-400">{{user.total_loans}}</span>
+                                </li>
+                                <li class="list-inline-item">
+                                    Mes:
+                                </li>
+                                <li class="list-inline-item">
+                                    <span class="text-lg text-blue-400">{{user.loans_month}}</span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    Total:
+                                </li>
+                                <li class="list-inline-item">
+                                    <span class="text-lg text-green-600">{{user.total_pays}}</span>
+                                </li>
+                                <li class="list-inline-item">
+                                    Mes:
+                                </li>
+                                <li class="list-inline-item">
+                                    <span class="text-lg text-green-600">{{user.loans_month}}</span>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="project-state">
+                            @if(user.rol == 'admin'){<span class="badge badge-success">{{user.rol}}</span>}
+                            @if(user.rol == 'developer'){<span class="badge badge-secondary">{{user.rol}}</span>}
+                            @if(user.rol == 'owner'){<span class="badge badge-info">{{user.rol}}</span>}
+                        </td>
+                        <td class="project-actions text-right">
+                            @if(admin.rol=='developer'||admin.rol=='owner'){
+                            <a class="btn btn-primary btn-sm" >
+                                    <i class="fas fa-folder">
+                                    </i>
+                                    View
+                                </a>
+                            }
+                            <a class="btn btn-info btn-sm" (click)="openDialog(user.name,user.id)">
+                                <i class="fas fa-pencil-alt">
+                                </i>
+                                Edit
+                            </a>
+                            @if(admin.rol=='developer'||admin.rol=='owner'){
+                            <a class="btn btn-danger btn-sm" (click)="openDelete(user.name,user.id)">
+                                <i class="fas fa-trash">
+                                </i>
+                                Delete
+                            </a>
+                        }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+  </section>
+  <!-- /.content -->

@@ -1,0 +1,83 @@
+<mat-toolbar >
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center text-3xl  text-weight-xl" style="font-weight: 500;">Registrar Cliente</span>
+    </mat-toolbar-row>
+    
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="clientForm">
+        <div fxFlex fxLayout="column">
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none" >
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" required>
+                @if(clientForm.controls.name.touched && clientForm.controls.name.invalid){
+                    <mat-error>
+                        @if(clientForm.controls.name.errors.required){
+                        <span>Este campo es obligatorio</span>}
+                        @else if (clientForm.controls.name.errors.pattern) {
+                            <span>Este campo es invalido</span>
+                        }
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none" >
+                <mat-label>Apellidos</mat-label>
+                <input matInput formControlName="lastname" required>
+                @if(clientForm.controls.lastname.touched && clientForm.controls.lastname.invalid){
+                    <mat-error>
+                        @if(clientForm.controls.lastname.errors.required){
+                        <span>Este campo es obligatorio</span>}
+                        @else if (clientForm.controls.lastname.errors.pattern) {
+                            <span>Este campo es invalido</span>
+                        }
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none" >
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="dni" required>
+                @if(clientForm.controls.dni.touched && clientForm.controls.dni.invalid){
+                    <mat-error>
+                        @if(clientForm.controls.dni.errors.required){
+                        <span>Este campo es obligatorio</span>}
+                        @else if (clientForm.controls.dni.errors.pattern) {
+                            <span>Este campo es invalido</span>
+                        }
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none" >
+                <mat-label>Dirección</mat-label>
+                <input matInput formControlName="address" type="address" required>
+                @if(clientForm.controls.address.touched && clientForm.controls.address.invalid){
+                    <mat-error>
+                        @if(clientForm.controls.address.errors.required){
+                        <span>Este campo es obligatorio</span>}
+                        @else if (clientForm.controls.address.errors.pattern) {
+                            <span>Este campo es invalido</span>
+                        }
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex fxLayoutAlign="space-around none" >
+                <mat-label>Numero de celular</mat-label>
+                <input matInput formControlName="phone_number" type="phone_number" required>
+                @if(clientForm.controls.phone_number.touched && clientForm.controls.phone_number.invalid){
+                    <mat-error>
+                        @if(clientForm.controls.phone_number.errors.required){
+                        <span>Este campo es obligatorio</span>}
+                        @else if (clientForm.controls.phone_number.errors.pattern) {
+                            <span>Este campo es invalido</span>
+                        }
+                    </mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" class="flex-row">
+    <button class="mr-10 mr-20:md" mat-raised-button type="submit" (click)="Submit()"
+    [disabled]="!(clientForm.valid && clientForm.dirty)">Registrar</button>
+    <button class="ml-10 ml-20:md" mat-raised-button mat-dialog-close (click)="close()">Cerrar</button>
+</mat-dialog-actions>

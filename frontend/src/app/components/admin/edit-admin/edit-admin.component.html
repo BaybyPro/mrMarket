@@ -1,0 +1,39 @@
+<mat-toolbar>
+  <mat-toolbar-row fxLayout="row">
+    <span class="title-center text-3xl text-weight-xl" style="font-weight: 500;">{{matTool}} usuario</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="userForm">
+    <mat-form-field class="w-full">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>contraseña</mat-label>
+      <input [type]="hide ? 'password' : 'text'" autocomplete="new-password" matInput formControlName="password">
+      <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()"
+        style="position: absolute; right: 0;">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <label>Cambiar contraseña</label>
+    <mat-form-field class="w-full">
+      <mat-label>nueva contraseña</mat-label>
+      <input [type]="hide2 ? 'password' : 'text'" matInput formControlName="new_password">
+      <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility2()"
+        style="position: absolute; right: 0;">
+        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button (click)="submit()"
+    class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-green-700 text-green-600 hover:bg-green-700 hover:text-white"
+    mat-raised-button>{{success}}</button>
+  <button (click)="dialogRefClose.close()"
+    class="flex-1 mx-2 sm:mx-4 md:mx-16 xl:mx-24 py-2 sm:py-4 text-xs font-medium uppercase rounded border-2 border-red-700 text-red-600 hover:bg-red-700 hover:text-white"
+    mat-raised-button>Salir</button>
+</mat-dialog-actions>
