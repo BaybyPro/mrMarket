@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pays', function (Blueprint $table) {
             $table->id();
             $table->foreignId('loan_id')->constrained('loans')->onDelete('cascade');
-            $table->foreignId('cuser_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users');
             $table->date('day');
             $table->decimal('amount_paid',6,2);
             $table->string('status',1)->default('1');
