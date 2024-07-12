@@ -32,4 +32,8 @@ export class LoanService {
     return this._http.get<any>(`${this.url}/loansClient/${id}`)
    }
 
+   deleteLoan(id:any){
+    return this._http.delete<any>(`${this.url}/loans/${id}`)
+   }
+
 }

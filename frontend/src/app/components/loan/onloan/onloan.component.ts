@@ -12,11 +12,12 @@ import { Global } from '../../../models/global';
 import { MatDialog,MatDialogConfig,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreatePayComponent } from '../../pays/create-pay/create-pay.component';
 import { ClientService } from '../../../services/client.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-onloan',
   standalone: true,
-  imports: [MatExpansionModule,MatIcon,MatInputModule],
+  imports: [MatExpansionModule,MatIcon,MatInputModule,MatDialogModule],
   templateUrl: './onloan.component.html',
   styleUrl: './onloan.component.css'
 })
@@ -32,6 +33,7 @@ export class OnloanComponent {
   updateDay: boolean = false;
   dataPaid:boolean = false;
   editpaid: boolean = true;
+  confirm: boolean = false;
   admin:any= [];
   adminPaid:any=[];
   message:string='';
@@ -225,5 +227,34 @@ export class OnloanComponent {
     dialogRef.afterClosed().subscribe(result=>{
       if(result){this.updateLoan()}
     })
+ }
+
+ openDelete(){
+    if(this.admin.rol == 'owner'){
+      this.confirm = !this.confirm;
+    }else{
+      this.snackbar.openSnackBar('solo el owner puede borrar prestamos','error')
+    }
+ }
+
+ deleteLoan(id:any){
+  this.loader.start()
+  this.loanService.deleteLoan(id).subscribe(
+    response=>{
+      this.loader.stop();
+      this.snackbar.openSnackBar(response.message,'')
+      this.confirm = false;
+      this.getLoans();
+    },err=>{
+      console.log(err)
+      this.loader.stop();
+      if(err.error.message){
+        this.message = err.error.message;
+      }else{
+        this.message = Global.genericError;
+      }
+      this.snackbar.openSnackBar(this.message,'error')
+    }
+  )
  }
 }

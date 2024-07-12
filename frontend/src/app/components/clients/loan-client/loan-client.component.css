@@ -3,3 +3,16 @@
     -webkit-overflow-scrolling: touch;
     
 }
+
+.table-data{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    
+}
+
+/* Asegúrate de incluir este estilo en tu archivo CSS */
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}

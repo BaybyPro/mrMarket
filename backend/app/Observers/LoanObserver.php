@@ -60,7 +60,11 @@ class LoanObserver
   
     public function deleted(Loan $loan): void
     {
-        //
+        $client = $loan->client;
+        if (!$this->hasOtherLoansWithStatus($client, [2,3, 4])) {
+            $client->status = 1;
+            $client->save();
+        }
     }
 
   

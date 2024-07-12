@@ -6,6 +6,7 @@ use App\Models\Loan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLoanRequest;
 use App\Http\Requests\UpdateLoanRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LoanController extends Controller
 {
@@ -67,6 +68,14 @@ class LoanController extends Controller
 
     public function destroy(Loan $loan)
     {
-        //
+        $user = Auth::user();
+    
+    if ($user->rol !== 'owner') {
+        return response()->json(['message' => 'solo el owner puede eliminar prestamos'], 403);
+    }
+
+    $loan->delete();
+
+    return response()->json(['message' => 'Prestamo eliminado correctamente'], 200);
     }
 }

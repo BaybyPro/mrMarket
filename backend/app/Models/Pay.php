@@ -65,5 +65,13 @@ class Pay extends Model
                 }
             }
         });
+
+        static::created(function($pay){
+            if ($pay->status == 5) {
+                $loan = $pay->loan;
+                $loan->missing -= $pay->amount_paid;
+                $loan->save();
+            }
+        });
     }
 }
