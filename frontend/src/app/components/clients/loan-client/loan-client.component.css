@@ -16,3 +16,8 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.button-confirm{
+    width: 40%;
+    text-align: center;
+}
