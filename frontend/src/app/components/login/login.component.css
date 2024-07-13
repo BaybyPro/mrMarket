@@ -1,4 +1,6 @@
 .body-login{
     background: url('../../../assets/loginbg.png')no-repeat center center;
     background-size: cover;
+    height: 100vh; /* Altura completa del viewport */
+    width: 100vw;  /* Ancho completo del viewport */
 }
